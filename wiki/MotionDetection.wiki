@@ -56,3 +56,29 @@ representing the motion vector image, the computed motion field and a motion vec
 
 <img src="http://optflow.googlecode.com/svn/wiki/images/proesmans_simple_motion.png" width=256 height=256>
 <img src="http://optflow.googlecode.com/svn/wiki/images/proesmans_simple_quality1.png" width=256 height=256>
+
+=References=
+
+The motion detection algorithms in this package are based on the 
+following articles:
+
+{{{
+[1] J. Bouguet, Pyramidal Implementation of the Lucas Kanade 
+    Feature Tracker: Description of the Algorithm, Technical 
+    report, OpenCV documents, Intel Corporation, Microprocessor 
+    Research Labs, 2000
+
+[2] B.D. Lucas and T. Kanade, An iterative image registration 
+    technique with an application to stereo vision, in Proc. 
+    Seventh International Joint Conference on Artificial 
+    Intelligence, Vancouver, 1981, pp. 674-679
+
+[3] M. Proesmans, L. Van Gool, E. Pauwels, and A. Oosterlinck, 
+    Determination of optical ﬂow and its discontinuities using 
+    non-linear diffusion, in 3rd European Conference on Computer 
+    Vision, ECCV’94, 1994, Vol. 2, pp. 295–304.
+}}}
+
+and the C-based implementations found at:
+ * ftp://ftp.csd.uwo.ca/pub/vision
+ * http://of-eval.sourceforge.net
