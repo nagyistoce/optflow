@@ -1,1 +1,19 @@
 #summary Compilation and installation
+
+= Compilation and installation =
+
+*Dependencies:*
+ * CImg (included in the package)
+ * Boost.Program_options (for parsing command-line arguments)
+
+*Optional dependencies:*
+|| Library  || CMake flag || Enables ||
+|| CGAL     || -DWITH_CGAL=ON/OFF || sparse vector fields and related algorithms ||
+|| OpenCV   || -DWITH_OPENCV=ON/OFF || OpenCV algorithms ||
+
+*Installation:*
+{{{
+  cmake . <optional flags>   <- put your CMake flags here
+  make
+  make install
+}}}
