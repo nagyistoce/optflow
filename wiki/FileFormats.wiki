@@ -1,3 +1,7 @@
 #summary File formats
 
+= File formats for storing vector fields =
+
+OptFlow uses two different file formats for storing motion fields. The PDVM format is for dense motion fields, and the PSVM format is for storing sparse motion fields. See DenseVectorFieldIO.h and SparseVectorFieldIO.h for their specifications.
+
 To be written...
