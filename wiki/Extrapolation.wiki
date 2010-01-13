@@ -1,3 +1,12 @@
 #summary Running extrapolation algorithms
 
+= Extrapolation of image sequences =
+
+OptFlow also implements algorithms for image extrapolation by using a motion field. The following methods are currently implemented:
+
+*Inverse pixel-based extrapolation* (dense motion fields)
+ * For each pixel in the second source image, find the corresponding pixel in the first source image. Requires an inverse motion field (I2->I1).
+*Forward mesh extrapolation* (sparse motion fields)
+ * Construct a textured triangle mesh from the first source image and transform the mesh by using a forward motion field (I1->I2).
+
 To be written...
