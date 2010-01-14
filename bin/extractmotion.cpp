@@ -353,30 +353,32 @@ int main(int argc, char **argv)
   // options specific to the Lucas-Kanade algorithm
   options_description lucasKanadeArgs("Options for the Lucas-Kanade algorithm");
   lucasKanadeArgs.add_options()
-    ("numlevels",    value< int >(),   "number of pyramid levels (default = ?)")
-    ("windowradius", value< int >(),   "feature matching window radius (default = ?)")
-    ("numiter",      value< int >(),   "number of iterations (default = ?)")
-    ("tau",          value< float >(), "eigenvalue threshold for feature matching (default = ?)")
-    ("sigmap",       value< float >(), "regularization parameter (default = ?)");
+    ("numlevels",    value< int >(),   "number of pyramid levels (default = 4)")
+    ("windowradius", value< int >(),   "feature matching window radius (default = 16)")
+    ("numiter",      value< int >(),   "number of iterations (default = 5)")
+    ("tau",          value< float >(), "eigenvalue threshold for feature matching (default = 0.0025)")
+    ("sigmap",       value< float >(), "regularization parameter (default = 0)");
   
   // options specific to the Lucas-Kanade algorithm (OpenCV)
   options_description opencvArgs("Options for the Lucas-Kanade algorithm (OpenCV)");
   opencvArgs.add_options()
-    ("numlevels",    value< int >(), "number of pyramid levels (default = ?)")
-    ("windowsize",   value< int >(), "feature matching window size (default = ?)")
-    ("maxnumpoints", value< int >(), "maximum number of feature points (default = ?)")
-    ("minpointdist", value< int >(), "minimum distance between feature points (default = ?)")
-    ("qualitylevel", value< int >(), "feature point quality threshold (default = ?)")
-    ("maxnumiter",   value< int >(), "maximum number of iterations (default = ?)")
-    ("epsilon",      value< int >(), "stopping criterion threshold (default = ?)");
+    ("numlevels",    value< int >(), "number of pyramid levels (default = 4)")
+    ("windowsize",   value< int >(), "feature matching window size (default = 40)")
+    ("maxnumpoints", value< int >(), "maximum number of feature points (default = 1000)")
+    ("minpointdist", value< int >(), "minimum distance between feature points (default = 10)")
+    ("qualitylevel", value< int >(), "feature point quality threshold (default = 0.025)")
+    ("maxnumiter",   value< int >(), "maximum number of iterations (default = 10)")
+    ("epsilon",      value< int >(), "stopping criterion threshold (default = 0.001)");
   
   // options specific to the Proesmans algorithm
   options_description proesmansArgs("Options for the Proesmans algorithm");
   proesmansArgs.add_options()
-    ("numlevels", value< int >(),   "number of pyramid levels (default = ?)")
-    ("numiter",   value< int >(),   "number of iterations (default = ?)")
-    ("lambda",    value< float >(), "smoothness parameter (default = ?)")
-    ("boundcond", value< int >(),   "boundary conditions (0 = Dirichlet, 1 = Neumann)  (default = ?)");
+    ("numlevels", value< int >(),   "number of pyramid levels (default = 4)")
+    ("numiter",   value< int >(),   "number of iterations (default = 200)")
+    ("lambda",    value< float >(), "smoothness parameter (default = 100)")
+    ("boundcond", value< int >(),   "boundary conditions (0 = Dirichlet, 1 = Neumann)  (default = 1)");
+  
+  std::string restrictions = "Restrictions:\n -the source images must be 8-bit grayscale images.\n -the dimensions of the source images must be powers of 2";
   
   options_description allArgs("");
   allArgs.add(generalArgs).add(reqArgs).add(lucasKanadeArgs).add(proesmansArgs).add(opencvArgs);
@@ -391,16 +393,31 @@ int main(int argc, char **argv)
     if(vm.size() == 0 || vm.count("help"))
     {
       std::cout<<allVisibleArgs<<std::endl;
+      std::cout<<restrictions<<std::endl;
       return EXIT_SUCCESS;
     }
     else if(vm.count("version"))
       std::cout<<OPTFLOW_VERSION_INFO<<std::endl;
     else if(vm.count("options") && vm["options"].as< string >() == "lucaskanade")
+    {
       std::cout<<lucasKanadeArgs<<std::endl;
+      return EXIT_SUCCESS;
+    }
     else if(vm.count("options") && vm["options"].as< string >() == "opencv")
+    {
       std::cout<<opencvArgs<<std::endl;
+      return EXIT_SUCCESS;
+    }
     else if(vm.count("options") && vm["options"].as< string >() == "proesmans")
+    {
       std::cout<<proesmansArgs<<std::endl;
+      return EXIT_SUCCESS;
+    }
+    else if(vm.count("options"))
+    {
+      std::cout<<"Invalid algorithm name."<<std::endl;
+      return EXIT_SUCCESS;
+    }
     else if(!vm.count("image1") || !vm.count("image2") || !vm.count("algorithm"))
     {
       std::cout<<"One or more required arguments missing."<<std::endl;
@@ -471,8 +488,12 @@ int main(int argc, char **argv)
     }
 #endif
   }
-  catch(std::exception &e) {
+  catch(CImgIOException &e1) {
+    std::cout<<"Invalid source image(s)."<<std::endl;
+  }
+  catch(std::exception &e2) {
     std::cout<<allVisibleArgs<<std::endl;
+    std::cout<<restrictions<<std::endl;
   }
   
   return EXIT_SUCCESS;

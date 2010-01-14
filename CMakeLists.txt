@@ -8,7 +8,7 @@ SET(CMAKE_VERBOSE_MAKEFILE ON)
 #add definitions, compiler switches, etc.
 ADD_DEFINITIONS(-Wall -O2)
 
-OPTION(WITH_ARGTABLE "compile with argtable (enables command-line interface)" ON)
+OPTION(WITH_BOOST_PROGRAM_OPTIONS "compile with Boost.Program_options (enables command-line interface)" ON)
 OPTION(WITH_CGAL "compile with CGAL (enables sparse motion field and triangulation support)" ON)
 OPTION(WITH_OPENCV "compile with OpenCV (enables OpenCV motion extraction algorithms)" ON)
 
@@ -21,7 +21,7 @@ IF(WITH_OPENCV)
 ENDIF()
 
 ADD_SUBDIRECTORY(lib)
-IF(WITH_ARGTABLE)
-  ADD_DEFINITIONS(-DWITH_ARGTABLE)
+IF(WITH_BOOST_PROGRAM_OPTIONS)
+  ADD_DEFINITIONS(-DWITH_BOOST_PROGRAM_OPTIONS)
   ADD_SUBDIRECTORY(bin)
 ENDIF()
