@@ -18,6 +18,7 @@
 #include <boost/program_options.hpp>
 #include <cstdlib>
 #include <cstring>
+#include <iostream>
 #include <string>
 
 using namespace boost::program_options;
@@ -434,6 +435,7 @@ int main(int argc, char **argv)
         vm.count("numlevels") > 0    ? vm["numlevels"].as< int >() : 4,
         true);
     }
+#if defined (WITH_OPENCV) && defined(WITH_CGAL)
     else if(vm["algorithm"].as< string >() == "opencv")
     {
       sparseMotionExtractor = new LucasKanadeOpenCV(
@@ -445,6 +447,7 @@ int main(int argc, char **argv)
         vm.count("maxnumiter") > 0   ? vm["maxnumiter"].as< int >() : 10,
         vm.count("epsilon") > 0      ? vm["epsilon"].as< float >() : 0.001);
     }
+#endif
     else if(vm["algorithm"].as< string >() == "proesmans")
     {
       Proesmans::BoundaryConditions boundCond;
