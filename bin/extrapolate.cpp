@@ -189,12 +189,12 @@ int main(int argc, char **argv)
   
   options_description reqArgs("Required arguments");
   reqArgs.add_options()
-    ("image", value< std::string >(), "the image to extrapolate")
-    ("motionfield", value< std::string >(), "the motion field to use")
+    ("image", value< std::string >(), "image to extrapolate")
+    ("motionfield", value< std::string >(), "motion field to use")
     ("numtimesteps", value< int >(), "number of images to extrapolate")
     ("outprefix", value< std::string >(), "output file prefix");
   
-  options_description allArgs("Usage: extractmotion <required arguments> [algorithm-specific options]");
+  options_description allArgs("Usage: extrapolate <required arguments>");
   allArgs.add(generalArgs).add(reqArgs);
   
   try {

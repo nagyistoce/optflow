@@ -235,7 +235,7 @@ int main(int argc, char **argv)
     ("algorithm", value< std::string >(), "motion extraction algorithm to use (opencv, proesmans)")
     ("outprefix", value< std::string >(), "output file prefix");
   
-  options_description allArgs("Usage: extractmotion <required arguments> [algorithm-specific options]");
+  options_description allArgs("Usage: morph <required arguments>");
   allArgs.add(generalArgs).add(reqArgs);
   
   try {
