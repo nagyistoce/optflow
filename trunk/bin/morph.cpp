@@ -15,6 +15,7 @@
 #include <CImg.h>
 #include <cstdlib>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 
 using namespace boost::program_options;

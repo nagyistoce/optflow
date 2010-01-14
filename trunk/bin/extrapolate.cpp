@@ -16,6 +16,7 @@
 #include "CImg_config.h"
 #include <CImg.h>
 #include <cstdlib>
+#include <iostream>
 
 using namespace boost::program_options;
 using namespace cimg_library;
@@ -265,9 +266,11 @@ int main(int argc, char **argv)
   }
   
   delete denseExtrapolator;
-  delete sparseExtrapolator;
   delete Vd;
+#if defined (WITH_OPENCV) && defined(WITH_CGAL)
+  delete sparseExtrapolator;
   delete Vs;
+#endif
   
   return EXIT_SUCCESS;
 }
