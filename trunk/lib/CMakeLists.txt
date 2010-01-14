@@ -22,7 +22,7 @@ SET(INST_HEADERS "DenseImageExtrapolator.h"
                  "SparseImageMorpher.h"
                  "SparseMotionExtractor.h"
                  "SparseVectorField.h"
-                 "SparseVectorField.h"
+                 "SparseVectorFieldIO.h"
                  "VectorFieldIllustrator.h")
 
 SET(SRCS "DenseImageMorpher.cpp"

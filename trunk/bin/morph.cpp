@@ -335,8 +335,16 @@ int main(int argc, char **argv)
         i++;
       }
     }
+    else
+    {
+      std::cout<<"Invalid algorithm name."<<std::endl;
+      return EXIT_SUCCESS;
+    }
   }
-  catch(std::exception &e) {
+  catch(CImgIOException &e1) {
+    std::cout<<"Invalid source image(s)."<<std::endl;
+  }
+  catch(std::exception &e2) {
     std::cout<<allArgs<<std::endl;
   }
   

@@ -197,6 +197,8 @@ int main(int argc, char **argv)
   options_description allArgs("Usage: extrapolate <required arguments>");
   allArgs.add(generalArgs).add(reqArgs);
   
+  std::string notes = "NOTE: If you use a dense motion field (.pdvm), it is assumed to be an inverse motion field (image2->image1).";
+  
   try {
     variables_map vm;
     store(parse_command_line(argc, argv, allArgs), vm);
@@ -205,6 +207,7 @@ int main(int argc, char **argv)
     if(vm.size() == 0 || vm.count("help"))
     {
       std::cout<<allArgs<<std::endl;
+      std::cout<<notes<<std::endl;
       return EXIT_SUCCESS;
     }
     else if(vm.count("version"))
@@ -253,8 +256,12 @@ int main(int argc, char **argv)
       ImageExtrapolatorDriver::runDenseImageExtrapolator(
         *denseExtrapolator, I0, *Vd, numTimeSteps, outPrefix);
   }
-  catch(std::exception &e) {
+  catch(CImgIOException &e1) {
+    std::cout<<"Invalid source image(s)."<<std::endl;
+  }
+  catch(std::exception &e2) {
     std::cout<<allArgs<<std::endl;
+    std::cout<<notes<<std::endl;
   }
   
   delete denseExtrapolator;

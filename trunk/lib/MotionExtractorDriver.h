@@ -64,17 +64,20 @@ private:
                           const CImg< unsigned char > &I2,
                           CImg< unsigned char > &I1_smoothed,
                           CImg< unsigned char > &I2_smoothed,
-                          CImg< unsigned char > &motionImage);
+                          CImg< unsigned char > &motionImageF,
+                          CImg< unsigned char > *motionImageB = NULL);
   
   static void saveResultImages_(const string &srcFileName1,
                                 const string &srcFileName2,
                                 const string &outFilePrefix,
                                 const CImg< unsigned char > &I1_smoothed,
                                 const CImg< unsigned char > &I2_smoothed,
-                                const CImg< unsigned char > &motionImage);
+                                const CImg< unsigned char > &motionImageF,
+                                const CImg< unsigned char > *motionImageB = NULL);
   
-  static void saveResultMotionField_(const CImg< double > &V,
-                                     const string &outFilePrefix);
+  static void saveResultMotionField_(const CImg< double > &VF,
+                                     const string &outFilePrefix,
+                                     const CImg< double > *VB = NULL);
   
 #ifdef WITH_CGAL
   static void saveResultMotionField_(const SparseVectorField &V,
