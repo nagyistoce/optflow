@@ -9,7 +9,6 @@
 #include "VectorFieldIllustrator.h"
 #include "version.h"
 
-#include <argtable2.h>
 #include <boost/program_options.hpp>
 #include "CImg_config.h"
 #include <CImg.h>
