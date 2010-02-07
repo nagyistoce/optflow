@@ -4,6 +4,7 @@
 
 *Dependencies:*
  * CImg (included in the package)
+ * ImageMagick
 
 *Optional dependencies:*
 || Library  || CMake flag || Enables ||
