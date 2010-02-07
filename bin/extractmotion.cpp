@@ -14,7 +14,6 @@
 #include "SparseImageExtrapolator.h"
 #include "version.h"
 
-//#include <argtable2.h>
 #include <boost/program_options.hpp>
 #include <cstdlib>
 #include <cstring>
