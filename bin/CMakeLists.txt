@@ -5,7 +5,7 @@ ADD_EXECUTABLE(extractmotion extractmotion.cpp)
 ADD_EXECUTABLE(extrapolate extrapolate.cpp)
 ADD_EXECUTABLE(morph morph.cpp)
 
-SET(LIBS "boost_program_options" "optflow")
+SET(LIBS "boost_program_options-mt" "optflow")
 
 IF(WITH_CGAL)
   SET(LIBS ${LIBS} "CGAL")
