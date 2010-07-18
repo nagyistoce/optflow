@@ -30,12 +30,6 @@ void PyramidalDenseMotionExtractor::compute(const CImg< unsigned char > &I1,
      I1.dimy() != I2.dimy())
     throw invalid_argument("The dimensions of the input images must match.");
   
-  // Check that the dimensions are powers of 2.
-  /*if(W == 0 || ( (W-1) & W ))
-    throw invalid_argument("The image width is not a power of two.");
-  if(H == 0 || ( (H-1) & H ))
-    throw invalid_argument("The image height is not a power of two.");*/
-  
   imagePyramids[0] = ImagePyramid(I1, NUMLEVELS);
   imagePyramids[1] = ImagePyramid(I2, NUMLEVELS);
   
