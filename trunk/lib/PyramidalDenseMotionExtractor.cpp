@@ -21,7 +21,7 @@ void PyramidalDenseMotionExtractor::compute(const CImg< unsigned char > &I1,
 {
   const int W = I1.dimx();
   const int H = I1.dimy();
-	
+  
   CImg< double > nextLevelVF;
   CImg< double > nextLevelVB;
   
@@ -29,34 +29,33 @@ void PyramidalDenseMotionExtractor::compute(const CImg< unsigned char > &I1,
   if(I1.dimx() != I2.dimx() || 
      I1.dimy() != I2.dimy())
     throw invalid_argument("The dimensions of the input images must match.");
-	
-  // Check that the dimensions are powers of 2. 
-  if(W == 0 || ( (W-1) & W ))
+  
+  // Check that the dimensions are powers of 2.
+  /*if(W == 0 || ( (W-1) & W ))
     throw invalid_argument("The image width is not a power of two.");
   if(H == 0 || ( (H-1) & H ))
-    throw invalid_argument("The image height is not a power of two.");
-	
+    throw invalid_argument("The image height is not a power of two.");*/
+  
   imagePyramids[0] = ImagePyramid(I1, NUMLEVELS);
   imagePyramids[1] = ImagePyramid(I2, NUMLEVELS);
-	
+  
   if(VF.dimx() != W || VF.dimy() != H || 
      VF.dimz() != getNumResultChannels())
     VF = CImg< double >(W, H, 1, 2 + getNumResultQualityChannels());
   if(isDual())
   {
-    if(VB.dimx() != W || VB.dimy() != H || 
-	VB.dimz() != getNumResultChannels())
+    if(VB.dimx() != W || VB.dimy() != H || VB.dimz() != getNumResultChannels())
       VB = CImg< double >(W, H, 1, 2 + getNumResultQualityChannels());
   }
   
   baseWidth = W;
   baseHeight = H;
-	
+  
   printInfoText();
-	
+  
   curLevelW = imagePyramids[0].getImageLevel(NUMLEVELS - 1).dimx();
   curLevelH = imagePyramids[0].getImageLevel(NUMLEVELS - 1).dimy();
-	
+  
   curLevelVF = CImg< double >(curLevelW, curLevelH, 1, getNumResultChannels());
   curLevelVF.fill(0);
   if(isDual())
@@ -64,15 +63,15 @@ void PyramidalDenseMotionExtractor::compute(const CImg< unsigned char > &I1,
     curLevelVB = CImg< double >(curLevelW, curLevelH, 1, getNumResultChannels());
     curLevelVB.fill(0);
   }
-	
+  
   for(int i = NUMLEVELS - 1; i >= 0; i--)
   {
     computeLevel_(i, curLevelVF, curLevelVB);
     
     if(i > 0)
     {
-      curLevelW *= 2;
-      curLevelH *= 2;
+      curLevelW = imagePyramids[0].getImageLevel(i-1).dimx();
+      curLevelH = imagePyramids[0].getImageLevel(i-1).dimy();
       
       nextLevelVF = CImg< double >(curLevelW, curLevelH, 1, getNumResultChannels());
       if(isDual())
@@ -117,10 +116,8 @@ void PyramidalDenseMotionExtractor::computeLevel_(int level,
 void PyramidalDenseMotionExtractor::initializeNextLevel_(CImg< double > &nextLevelVF,
                                                          CImg< double > &nextLevelVB)
 {
-  const int WOLD = curLevelVF.dimx();
-  const int HOLD = curLevelVF.dimy();
-  const int WNEW = nextLevelVF.dimx();
-  const int HNEW = nextLevelVF.dimy();
+  const int W_NEW = nextLevelVF.dimx();
+  const int H_NEW = nextLevelVF.dimy();
   
   double vxf, vyf;
   double vxb, vyb;
@@ -128,10 +125,10 @@ void PyramidalDenseMotionExtractor::initializeNextLevel_(CImg< double > &nextLev
   double xc, yc;
   int xn, yn;
   
-  for(yn = 0; yn < HNEW; yn++)
+  for(yn = 0; yn < H_NEW; yn++)
   {
     yc = yn / 2.0;
-    for(xn = 0; xn < WNEW; xn++)
+    for(xn = 0; xn < W_NEW; xn++)
     {
       xc = xn / 2.0;
       if(xn % 2 != 0 || yn % 2 != 0)
