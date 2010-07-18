@@ -29,7 +29,7 @@ using namespace std;
  * Feature Tracker: Description of the Algorithm, Technical 
  * report, OpenCV documents, Intel Corporation, Microprocessor 
  * Research Labs, 2000
- * 
+ *
  */
 class PyramidalDenseMotionExtractor : public DenseMotionExtractor
 {
