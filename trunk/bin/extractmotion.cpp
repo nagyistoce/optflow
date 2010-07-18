@@ -1,4 +1,3 @@
-
 /*
  * This program is for testing different 
  * motion extraction algorithms.
@@ -71,7 +70,7 @@ int main(int argc, char **argv)
     ("lambda",    value< float >(), "smoothness parameter (default = 100)")
     ("boundcond", value< int >(),   "boundary conditions (0 = Dirichlet, 1 = Neumann)  (default = 1)");
   
-  std::string restrictions = "Restrictions:\n -the source images must be 8-bit grayscale images.\n -the dimensions of the source images must be powers of 2";
+  std::string restrictions = "Restrictions:\n -the source images must be 8-bit grayscale images.";
   
   options_description allArgs("");
   allArgs.add(generalArgs).add(reqArgs).add(lucasKanadeArgs).add(proesmansArgs).add(opencvArgs);
