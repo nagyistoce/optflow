@@ -17,9 +17,8 @@ using namespace cimg_library;
  * fields and the inverse-mapped pixel-to-pixel 
  * warping algorithm.
  */
-class DenseImageMorpher
+namespace DenseImageMorpher
 {
-public:
   /// Computes the intermediate image between two images at the given time.
   /**
    * @param[in] I1 the first source image
@@ -35,7 +34,7 @@ public:
              const CImg< double > &V2,
              double t,
              CImg< unsigned char > &M);
-};
+}
 
 #define DENSEIMAGEMORPHER_H
 

@@ -35,8 +35,8 @@ int main(int argc, char **argv)
     ("options", value< std::string >(), "print options specific to the algorithm <arg>")
     ("version", "print version number");
   
-  options_description reqArgs("Required arguments");
-  reqArgs.add_options()
+  options_description mandatoryArgs("Mandatory arguments");
+  mandatoryArgs.add_options()
     ("image1", value< std::string >(), "first image")
     ("image2", value< std::string >(), "second image")
     ("algorithm", value< std::string >(), "motion detection algorithm (lucaskanade, opencv, proesmans)")
@@ -73,9 +73,9 @@ int main(int argc, char **argv)
   std::string restrictions = "Restrictions:\n -the source images must be 8-bit grayscale images.";
   
   options_description allArgs("");
-  allArgs.add(generalArgs).add(reqArgs).add(lucasKanadeArgs).add(proesmansArgs).add(opencvArgs);
+  allArgs.add(generalArgs).add(mandatoryArgs).add(lucasKanadeArgs).add(proesmansArgs).add(opencvArgs);
   options_description allVisibleArgs("Usage: extractmotion <required arguments> [algorithm-specific options]");
-  allVisibleArgs.add(generalArgs).add(reqArgs);
+  allVisibleArgs.add(generalArgs).add(mandatoryArgs);
   
   try {
     variables_map vm;
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
     else if(!vm.count("image1") || !vm.count("image2") || !vm.count("algorithm"))
     {
       std::cout<<"One or more required arguments missing."<<std::endl;
-      std::cout<<reqArgs<<std::endl;
+      std::cout<<mandatoryArgs<<std::endl;
     }
     
     if(vm["algorithm"].as< string >() == "lucaskanade")
