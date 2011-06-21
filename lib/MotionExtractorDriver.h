@@ -29,9 +29,9 @@ using namespace std;
  * names of the source images excluding their 
  * extensions and "prefix" is given by user. 
  */
-class MotionExtractorDriver
+namespace MotionExtractorDriver
 {
-public:
+//public:
   /// Runs a dense motion extractor.
   /**
    * @param e motion extraction algorithm
@@ -39,10 +39,10 @@ public:
    * @param srcFileName2 the file to read the second source image from
    * @param outFileNamePrefix the prefix of the resulting images
    */
-  static void runDenseMotionExtractor(DenseMotionExtractor &e,
-                                      const string &src1,
-                                      const string &src2,
-                                      const string &outFilePrefix);
+  void runDenseMotionExtractor(DenseMotionExtractor &e,
+                               const string &src1,
+                               const string &src2,
+                               const string &outFilePrefix);
   
 #ifdef WITH_CGAL
   /// Runs a sparse motion extractor.
@@ -52,36 +52,10 @@ public:
    * @param srcFileName2 the file to read the second source image from
    * @param outFileNamePrefix the prefix of the resulting images
    */
-  static void runSparseMotionExtractor(SparseMotionExtractor &e,
-                                       const string &src1,
-                                       const string &src2,
-                                       const string &outFilePrefix);
-#endif
-private:
-  static string getBaseName_(const string &fileName);
-  
-  static void preProcess_(const CImg< unsigned char > &I1,
-                          const CImg< unsigned char > &I2,
-                          CImg< unsigned char > &I1_smoothed,
-                          CImg< unsigned char > &I2_smoothed,
-                          CImg< unsigned char > &motionImageF,
-                          CImg< unsigned char > *motionImageB = NULL);
-  
-  static void saveResultImages_(const string &srcFileName1,
-                                const string &srcFileName2,
-                                const string &outFilePrefix,
-                                const CImg< unsigned char > &I1_smoothed,
-                                const CImg< unsigned char > &I2_smoothed,
-                                const CImg< unsigned char > &motionImageF,
-                                const CImg< unsigned char > *motionImageB = NULL);
-  
-  static void saveResultMotionField_(const CImg< double > &VF,
-                                     const string &outFilePrefix,
-                                     const CImg< double > *VB = NULL);
-  
-#ifdef WITH_CGAL
-  static void saveResultMotionField_(const SparseVectorField &V,
-                                     const string &outFilePrefix);
+  void runSparseMotionExtractor(SparseMotionExtractor &e,
+                                const string &src1,
+                                const string &src2,
+                                const string &outFilePrefix);
 #endif
 };
 

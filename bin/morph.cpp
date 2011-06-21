@@ -133,7 +133,6 @@ int main(int argc, char **argv)
       CImg< double > V1, V2;
       CImg< unsigned char > M;
       PyramidalProesmans motionExtractor;
-      DenseImageMorpher morpher;
       ostringstream ostr;
     
       motionExtractor.compute(I1_smoothed, I2_smoothed, V1, V2);
@@ -146,7 +145,7 @@ int main(int argc, char **argv)
       int i = 1;
       for(double t = 0; t <= 1.0; t += dt)
       {
-        morpher.morph(I1, I2, V2, V1, t, M);
+        DenseImageMorpher::morph(I1, I2, V2, V1, t, M);
         saveMorphImage(M, i, outFilePrefix);
       
         i++;
