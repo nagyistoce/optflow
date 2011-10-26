@@ -54,13 +54,13 @@ int main(int argc, char **argv)
   // options specific to the Lucas-Kanade algorithm (OpenCV)
   options_description opencvArgs("Options for the Lucas-Kanade algorithm (OpenCV)");
   opencvArgs.add_options()
-    ("numlevels",    value< int >(), "number of pyramid levels (default = 4)")
-    ("windowsize",   value< int >(), "feature matching window size (default = 40)")
-    ("maxnumpoints", value< int >(), "maximum number of feature points (default = 1000)")
-    ("minpointdist", value< int >(), "minimum distance between feature points (default = 10)")
-    ("qualitylevel", value< int >(), "feature point quality threshold (default = 0.025)")
-    ("maxnumiter",   value< int >(), "maximum number of iterations (default = 10)")
-    ("epsilon",      value< int >(), "stopping criterion threshold (default = 0.001)");
+    ("numlevels",    value< int >(),   "number of pyramid levels (default = 4)")
+    ("windowsize",   value< int >(),   "feature matching window size (default = 30)")
+    ("maxnumpoints", value< int >(),   "maximum number of feature points (default = 1000)")
+    ("minpointdist", value< float >(), "minimum distance between feature points (default = 5)")
+    ("qualitylevel", value< float >(), "feature point quality threshold (default = 0.001)")
+    ("maxnumiter",   value< int >(),   "maximum number of iterations (default = 10)")
+    ("epsilon",      value< float >(), "stopping criterion threshold (default = 0.001)");
   
   // options specific to the Proesmans algorithm
   options_description proesmansArgs("Options for the Proesmans algorithm");
@@ -131,10 +131,10 @@ int main(int argc, char **argv)
     {
       sparseMotionExtractor = new LucasKanadeOpenCV(
         vm.count("numlevels") > 0    ? vm["numlevels"].as< int >() : 4,
-        vm.count("windowsize") > 0   ? vm["windowsize"].as< int >() : 40,
+        vm.count("windowsize") > 0   ? vm["windowsize"].as< int >() : 30,
         vm.count("maxnumpoints") > 0 ? vm["maxnumpoints"].as< int >() : 1000,
-        vm.count("minpointdist") > 0 ? vm["minpointdist"].as< float >() : 10,
-        vm.count("qualitylevel") > 0 ? vm["qualitylevel"].as< float >() : 0.025,
+        vm.count("minpointdist") > 0 ? vm["minpointdist"].as< float >() : 5,
+        vm.count("qualitylevel") > 0 ? vm["qualitylevel"].as< float >() : 0.001,
         vm.count("maxnumiter") > 0   ? vm["maxnumiter"].as< int >() : 10,
         vm.count("epsilon") > 0      ? vm["epsilon"].as< float >() : 0.001);
     }
