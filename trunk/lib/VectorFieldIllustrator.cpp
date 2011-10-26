@@ -34,8 +34,8 @@ void VectorFieldIllustrator::renderDenseVectorField(const CImg< double > &V,
 void VectorFieldIllustrator::renderSparseVectorField(const SparseVectorField &V,
                                                      CImg< unsigned char > &I)
 {
-  vector< Point >::const_iterator fpIter1 = V.getInitialPoints().begin();
-  vector< Point >::const_iterator fpIter2 = V.getTerminalPoints().begin();
+  vector< Point >::const_iterator fpIter1 = V.getStartPoints().begin();
+  vector< Point >::const_iterator fpIter2 = V.getEndPoints().begin();
   
   unsigned char color[3];
   
@@ -54,14 +54,14 @@ void VectorFieldIllustrator::renderSparseVectorField(const SparseVectorField &V,
   
   for(list< int >::const_iterator iIter = V.getTriIndices().begin(); iIter != V.getTriIndices().end(); iIter++)
   {
-    int x1 = V.getInitialPoint(*iIter).x();
-    int y1 = V.getInitialPoint(*iIter).y();
+    int x1 = V.getStartPoint(*iIter).x();
+    int y1 = V.getStartPoint(*iIter).y();
     iIter++;
-    int x2 = V.getInitialPoint(*iIter).x();
-    int y2 = V.getInitialPoint(*iIter).y();
+    int x2 = V.getStartPoint(*iIter).x();
+    int y2 = V.getStartPoint(*iIter).y();
     iIter++;
-    int x3 = V.getInitialPoint(*iIter).x();
-    int y3 = V.getInitialPoint(*iIter).y();
+    int x3 = V.getStartPoint(*iIter).x();
+    int y3 = V.getStartPoint(*iIter).y();
     
     I.draw_line(x1, y1, x2, y2, color);
     I.draw_line(x2, y2, x3, y3, color);
@@ -72,7 +72,7 @@ void VectorFieldIllustrator::renderSparseVectorField(const SparseVectorField &V,
   color[1] = 220;
   color[2] = 100;
   
-  for(; fpIter1 != V.getInitialPoints().end(); )
+  for(; fpIter1 != V.getStartPoints().end(); )
   {
     I.draw_arrow(fpIter1->x(), fpIter1->y(),
                  fpIter2->x(), fpIter2->y(),

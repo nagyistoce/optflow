@@ -65,7 +65,7 @@ void SparseImageExtrapolator::extrapolate(const CImg< unsigned char > &I0,
                                           double multiplier,
                                           CImg< unsigned char > &Ie) const
 {
-  extrapolate_(I0, V.getInitialPoints(), V.getTerminalPoints(),
+  extrapolate_(I0, V.getStartPoints(), V.getEndPoints(),
                V.getTriIndices(), multiplier, Ie);
 }
 

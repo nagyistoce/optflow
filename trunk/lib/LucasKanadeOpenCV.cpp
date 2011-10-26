@@ -80,8 +80,8 @@ void LucasKanadeOpenCV::compute(const CImg< unsigned char > &I1,
   
   for(int i = 0; i < numFeaturePoints; i++)
   {
-    cvFeaturePoints1[i].x = V.getInitialPoint(i).x();
-    cvFeaturePoints1[i].y = V.getInitialPoint(i).y();
+    cvFeaturePoints1[i].x = V.getStartPoint(i).x();
+    cvFeaturePoints1[i].y = V.getStartPoint(i).y();
   }
   
   cvCalcOpticalFlowPyrLK(I1_cv, I2_cv, NULL, NULL,
@@ -94,7 +94,7 @@ void LucasKanadeOpenCV::compute(const CImg< unsigned char > &I1,
     x2 = cvFeaturePoints2[i].x;
     y2 = cvFeaturePoints2[i].y;
     
-    V.setTerminalPoint(i, x2, y2);
+    V.setEndPoint(i, x2, y2);
   }
   
   cvReleaseImageHeader(&I1_cv);
