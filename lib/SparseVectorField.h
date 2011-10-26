@@ -35,20 +35,20 @@ public:
   /// Removes all vectors in this vector field.
   void clear();
   
-  /// Returns the initial point of the ith vector in this vector field.
-  const Point &getInitialPoint(int i) const;
+  /// Returns the starting point of the ith vector in this vector field.
+  const Point &getStartPoint(int i) const;
   
-  /// Returns the initial points of the vectors in this vector field.
-  const vector< Point > &getInitialPoints() const;
+  /// Returns the starting points of the vectors in this vector field.
+  const vector< Point > &getStartPoints() const;
   
   /// Returns the number of vectors in this vector field.
   int getNumVectors() const;
   
-  /// Returns the terminal point of the ith vector in this vector field.
-  const Point &getTerminalPoint(int i) const;
+  /// Returns the end point of the ith vector in this vector field.
+  const Point &getEndPoint(int i) const;
   
-  /// Returns the terminal points of the vectors in this vector field.
-  const vector< Point > &getTerminalPoints() const;
+  /// Returns the end points of the vectors in this vector field.
+  const vector< Point > &getEndPoints() const;
   
   /// Returns the indices of the triangulation (if valid)
   /**
@@ -57,11 +57,11 @@ public:
    */
   const list< int > &getTriIndices() const;
   
-  /// Sets the initial point of the ith vector.
-  void setInitialPoint(int i, int x, int y);
+  /// Sets the start point of the ith vector.
+  void setStartPoint(int i, int x, int y);
   
-  /// Sets the terminal point of the ith vector.
-  void setTerminalPoint(int i, double x, double y);
+  /// Sets the end point of the ith vector.
+  void setEndPoint(int i, double x, double y);
   
   /// Triangulates the set of vector starting points.
   /**
@@ -72,9 +72,9 @@ public:
   
   friend ostream &operator<<(ostream &os, const SparseVectorField &V);
 private:
-  vector< Point > initialPoints_;
+  vector< Point > startPoints_;
   bool triangulationValid_;
-  vector< Point > terminalPoints_;
+  vector< Point > endPoints_;
   list< int > triIndices_;
 };
 

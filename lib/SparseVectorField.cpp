@@ -15,49 +15,49 @@ SparseVectorField::SparseVectorField() : triangulationValid_(false) { }
 
 void SparseVectorField::addVector(const Point &ip)
 {
-  initialPoints_.push_back(Point(ip.x(), ip.y()));
-  terminalPoints_.push_back(Point(ip.x(), ip.y()));
+  startPoints_.push_back(Point(ip.x(), ip.y()));
+  endPoints_.push_back(Point(ip.x(), ip.y()));
   triangulationValid_ = false;
 }
 
 void SparseVectorField::addVector(const Point &ip, const Point &tp)
 {
-  initialPoints_.push_back(Point(ip.x(), ip.y()));
-  terminalPoints_.push_back(Point(tp.x(), tp.y()));
+  startPoints_.push_back(Point(ip.x(), ip.y()));
+  endPoints_.push_back(Point(tp.x(), tp.y()));
   triangulationValid_ = false;
 }
 
 void SparseVectorField::clear()
 {
-  initialPoints_.clear();
-  terminalPoints_.clear();
+  startPoints_.clear();
+  endPoints_.clear();
   triIndices_.clear();
   triangulationValid_ = false;
 }
 
-const Point &SparseVectorField::getInitialPoint(int i) const
+const Point &SparseVectorField::getStartPoint(int i) const
 {
-  return initialPoints_[i];
+  return startPoints_[i];
 }
 
-const vector< Point > &SparseVectorField::getInitialPoints() const
+const vector< Point > &SparseVectorField::getStartPoints() const
 {
-  return initialPoints_;
+  return startPoints_;
 }
 
-const vector< Point > &SparseVectorField::getTerminalPoints() const
+const vector< Point > &SparseVectorField::getEndPoints() const
 {
-  return terminalPoints_;
+  return endPoints_;
 }
 
-const Point &SparseVectorField::getTerminalPoint(int i) const
+const Point &SparseVectorField::getEndPoint(int i) const
 {
-  return terminalPoints_[i];
+  return endPoints_[i];
 }
 
 int SparseVectorField::getNumVectors() const
 {
-  return initialPoints_.size();
+  return startPoints_.size();
 }
 
 const list< int > &SparseVectorField::getTriIndices() const
@@ -68,14 +68,14 @@ const list< int > &SparseVectorField::getTriIndices() const
     throw logic_error("No valid triangulation");
 }
 
-void SparseVectorField::setInitialPoint(int i, int x, int y)
+void SparseVectorField::setStartPoint(int i, int x, int y)
 {
-  initialPoints_[i] = Point(x, y);
+  startPoints_[i] = Point(x, y);
 }
 
-void SparseVectorField::setTerminalPoint(int i, double x, double y)
+void SparseVectorField::setEndPoint(int i, double x, double y)
 {
-  terminalPoints_[i] = Point(x, y);
+  endPoints_[i] = Point(x, y);
 }
 
 void SparseVectorField::triangulate()
@@ -89,11 +89,11 @@ void SparseVectorField::triangulate()
   map< Point, int > Vi;
   Delaunay::Finite_vertices_iterator vIter;
   
-  dt.insert(initialPoints_.begin(), initialPoints_.end());
+  dt.insert(startPoints_.begin(), startPoints_.end());
   
   // Map each vertex to its index.
-  for(int i = 0; i < initialPoints_.size(); i++)
-    Vi[initialPoints_[i]] = i;
+  for(int i = 0; i < startPoints_.size(); i++)
+    Vi[startPoints_[i]] = i;
   
   // Map vertices in the Delaunay triangulation to the original vertices.
   for(vIter = dt.finite_vertices_begin(); vIter != dt.finite_vertices_end(); vIter++)
@@ -120,8 +120,8 @@ ostream &operator<<(ostream &os, const SparseVectorField &V)
   
   for(int i = 0; i < V.getNumVectors(); i++)
   {
-    p1 = V.getInitialPoint(i);
-    p2 = V.getTerminalPoint(i);
+    p1 = V.getStartPoint(i);
+    p2 = V.getEndPoint(i);
     u = p2.x() - p1.x();
     v = p2.y() - p1.y();
     os<<"Vector "<<i+1<<": ";
